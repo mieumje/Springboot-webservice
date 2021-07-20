@@ -41,7 +41,7 @@ public class PostsService {
     }
 
     // 전체 글 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public List<PostsListResponseDto> findAllDesc(){
         return postsRepository.findAllDesc().stream()
                 .map(PostsListResponseDto::new)
