@@ -1,5 +1,6 @@
 package com.mieumje.springboot.web;
 
+import com.mieumje.springboot.config.auth.LoginUser;
 import com.mieumje.springboot.config.auth.dto.SessionUser;
 import com.mieumje.springboot.service.PostsService;
 import com.mieumje.springboot.web.dto.PostsResponseDto;
@@ -19,11 +20,11 @@ public class IndexController {
     private final HttpSession httpSession;
 
     @GetMapping("/")
-    public String index(Model model)
+    public String index(Model model, @LoginUser SessionUser user)
     {
         model.addAttribute("posts",postsService.findAllDesc());
         // userName을 사용할 수 있게 model에 저장
-        SessionUser user = (SessionUser) httpSession.getAttribute("user");
+        // SessionUser user = (SessionUser) httpSession.getAttribute("user"); @LoginUser로 개선
         if(user != null){
             model.addAttribute("userName",user.getName());
         }
